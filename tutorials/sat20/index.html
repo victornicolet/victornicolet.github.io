@@ -1,0 +1,215 @@
+<html>
+
+<head>
+	<title>An introduction to solving SAT with z3</title>
+	<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+	<meta name="description" content="Homepage of Victor Nicolet">
+	<meta name="keywords" content="victor, nicolet, z3, SAT, SMT, z3, solvers">
+	<meta name="author" content="Victor Nicolet">
+	<meta content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes" name="viewport">
+	<!--  Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+	<link rel="stylesheet" href="../../style.css">
+	<link rel="stylesheet" href="../../font-awesome/css/font-awesome.min.css">
+</head>
+
+<body>
+	<div id="page-container">
+		<div id="header">
+			<h1 class="header-big-title">CSC410 Tutorial: Solving SAT Problems With Z3</h1>
+		</div> <!-- header -->
+		<div id="main-container" class="card card-1">
+			<div class="text-contents">
+				<div class="card card-1">
+					<div class="card-content">
+						<p><a href="#installation">Installing z3 and its Python interface</a></p>
+						<p><a href="#video1">Video Tutorial: Basic Commands and Five Queens Problem</a></p>
+						<p><a href="#getting_started">Reminder: Basic Commands</a></p>
+						<p><a href="#bonus">Bonus: Sudoku Solver</a></p>
+
+					</div> <!-- card-content -->
+				</div> <!-- card -->
+				<div class="card card-1">
+					<div class="card-content">
+						<p>
+							This short tutorial serves as an introduction to using Z3 through its Python interface as
+							well as learning how to encode general problems into SAT problems. The first step, if you
+							haven't done so before, is to install Z3 and its python bindings. Once your installation is
+							working, you can start going through the video tutorial.<br>
+							The first video introduces basics commands and then explains how the Five Queens problem can
+							be encoded into a SAT problem. The second (bonus) video uses all the commands and techniques
+							presented in the first video to write a Sudoku solver in a few lines.
+						</p>
+						<p>
+							You can find a guide to the API <a
+								href="https://ericpony.github.io/z3py-tutorial/guide-examples.htm"> here</a>. However,
+							in this tutorial we are only using a very restricted subset of the commands. In particular
+							we are not using integers or any other variable types than booleans. You might find reading
+							this guide confusing at first, but rest assured, you will learn how to use other features of
+							the solver during the next tutorial.
+						</p>
+					</div>
+				</div>
+				<div class="card card-1">
+					<div id="installation" class="card-title">Installing z3 and its Python interface</div>
+					<div class="card-content">
+						<p>
+							In this tutorial, we will be using Z3's Python interface. The easiest way to install it,
+							along with a Z3 binary, is to use Python's package manager <span
+								class="codeSnippet">pip</span>. In this tutorial, we will be using Python 3.7. Start by
+							installing the corresponding Z3 package with the command:
+						</p>
+						<div class="codeSnippet">pip install z3-solver</div>
+						<p>
+							<span class="alert">Remark that the corresponding package is <span
+									class="codeSnippet">z3-solver</span> and not <span class="codeSnippet">z3</span>. Do
+								not install the latter!</span>
+						</p>
+						<p>
+							We will not need any other package in this tutorial, so you can create a virtual environment
+							with this package only. You can also look for other installation methods on <a
+								href="https://github.com/Z3Prover/z3" target="_blank">Z3' github page </a>, and keep in
+							mind that we want to use the Python interface. Once you are set up, you should be able to
+							call the solver from your terminal and see:
+						</p>
+						<p class="code">
+							$ z3 </br>
+							Error: input file was not specified. </br>
+							For usage information: z3 -h
+						</p>
+						<p> To test your Python installation, launch the Python interpreter for which you installed Z3.
+							You should be able to type the following commands:</p>
+						<p class="code">
+							$ python </br>
+							... </br>
+							>>> from z3 import *</br>
+							>>> s = Solver()</br>
+							>>> s.check()</br>
+							sat
+						</p>
+						<p>
+							Now you have installed all the software we need in this tutorial. If you want to do some
+							background reading, you can start <a
+								href="https://github.com/Z3Prover/z3/wiki#background">here</a> but the tutorial will be
+							self contained. Z3 is much more than a simple SAT solver, but we will not use any of its SMT
+							solving or theorem proving capabilities for now.
+						</p>
+					</div> <!-- card-content -->
+				</div> <!-- card -->
+				<div id="video1" class="card card-1">
+					<div class="card-title">Video Tutorial: Basic Commands and Five Queens Example</div>
+					<div class="card-content">
+						<p>
+							You can view the video on MyMedia by clicking on the <a
+								href="https://play.library.utoronto.ca/e67d09b97d14dff154e1d0ba7d3970c3">following
+								link</a>
+							or watch on YouTube below:
+						</p>
+						<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/GdrI3IESyVY"
+							frameborder="0"
+							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+							allowfullscreen></iframe>
+						<p>You can see the solution for the Five Queens problem presented in this video <a
+								href="fiveQueens.py">here</a>.
+						</p>
+					</div>
+				</div>
+				<div id="getting_started" class="card card-1">
+					<div class="card-title">Basic commands</div>
+					<div class="card-content">
+						<p>
+							In the first part of the video, we review the basic functionalities we need in order to
+							write formulas and manipulate the solver.
+						</p>
+						<p>
+							To write a boolean formula, we will need to declare boolean variables for the solver. You
+							can do this in Python using the <span class="code">Bool()</span> constructor. For example,
+							we can start by creating two boolean variables <span class="code">x</span> and <span
+								class="code">y</span>:
+						</p>
+						<p class="code">
+							>>> from z3 import *</br>
+							>>> x = Bool("x")</br>
+							>>> y = Bool("y")</br>
+						</p>
+						<p>
+							With boolean variables, you can build boolean formulas. <span class="code">z3</span> gives
+							you constructors for disjunctions and conjunctions, negation, and equivalence:
+						</p>
+						<p class="code">
+							>>> x_or_y = Or([x,y]) # disjunction</br>
+							>>> x_and_y = And([x,y]) # conjunction</br>
+							>>> not_x = Not(x) # negation</br>
+							>>> x_or_y_iff_not_x = x_and_y == not_x # This is the formula (x_or_y <=> not_x) not a
+								boolean! </br>
+						</p>
+						<p>
+							Once we have built the clauses that compose our problem, we can pass them to a solver:
+						</p>
+						<p class="code">
+							>>> s = Solver() # create a solver s</br>
+							>>> s.add(x_or_y) # add the clause: x or y</br>
+							>>> z = Bool("z")</br>
+							>>> s.add(Or[x,y,Not(z)]) # add another clause: x or y or !z
+						</p>
+						<p>
+							Calling <span class="code">s.check()</span> at that point will ask the solver to find a
+							satisfying assignment for the boolean formula built from the conjunction of all the clauses
+							that have been added through <span class="code">s.add(..)</span>. In our running example,
+							the call should return <span class="code">sat</span>:
+						</p>
+						<p class="code">
+							>>> s.check()</br>
+							sat
+						</p>
+						<p>
+							If the solver cannot find a satisfying assignment, then it will return <span
+								class="code">unsat</span>. In the case it returned <span class="code">sat</span>, you
+							can obtain the assignment itself with the <span class="code">model()</span> method:
+						</p>
+						<p class="code">
+							>>> s.model()</br>
+							[x = False, y = True, z = False]
+						</p>
+						<p>
+							And that is all you need for this tutorial, as well as for the assignment. The difficulty
+							will be to design the encoding, not to use the solver!
+						</p>
+					</div>
+					<!--card-content-->
+				</div>
+				<!--card-->
+				<div id="bonus" class="card card-1">
+					<div class="card-title">Bonus: A Sudoku Solver</div>
+					<div class="card-content">
+						<p>
+							You can view the video on MyMedia by clicking on the <a
+								href="https://play.library.utoronto.ca/dd94817dc20db3b6ace4b23eb26c9adf">following
+								link</a>
+							or watch on YouTube below:
+						</p>
+						<iframe width="560" height="315" src="https://www.youtube.com/embed/zzQUe5QWad8" frameborder="0"
+							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+							allowfullscreen></iframe>
+						<p>
+							You can see the solution for the Sudoku problem <a href="sudoku.py">here</a>. The python
+							code is slightly different from the one presented in the video, but the encoding is exactly
+							the same.
+						</p>
+						<p>
+							Here are a few input samples:
+							<a href="grid0.txt">grid0</a>, <a href="grid1.txt">grid1</a>, <a href="grid2.txt">grid2</a>
+							and <a href="grid3.txt">grid3</a>.
+						</p>
+
+					</div> <!-- card-content -->
+				</div> <!-- card -->
+				<div>
+					<!-- text-contents -->
+				</div> <!-- main-container -->
+				<div id="footer">
+				</div>
+			</div> <!-- page container -->
+</body>
+
+</html>

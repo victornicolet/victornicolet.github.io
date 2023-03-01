@@ -1,0 +1,86 @@
+<html>
+
+<head>
+	<title>SMT for problem solving</title>
+	<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+	<meta name="description" content="Homepage of Victor Nicolet">
+	<meta name="keywords" content="victor, nicolet, z3, SAT, SMT, z3, solvers">
+	<meta name="author" content="Victor Nicolet">
+	<meta content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes" name="viewport">
+	<!--  Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+	<link rel="stylesheet" href="../../style.css">
+	<link rel="stylesheet" href="../../font-awesome/css/font-awesome.min.css">
+</head>
+
+<body>
+	<div id="page-container">
+		<div id="header">
+			<h1 class="header-big-title">CSC410 Tutorial: SMT for Problem Solving</h1>
+		</div> <!-- header -->
+		<div id="main-container" class="card card-1">
+			<div class="text-contents">
+				<div class="card card-1">
+					<div class="card-content">
+						<p>
+							This short tutorial is an introduction on using Z3 as a SMT solver, and also techniques to
+							encode problems into SMT problems. We will briefly review two theories that can be used with
+							Z3: Linear Integer Arithmetic (LIA) and uninterpreted functions. To illustrate a problem
+							that can be solved using LIA, we will look at the Job Shop problem. Then, we will solve a
+							small logic problem to illustrate how functions can be used to model a seating arrangment.
+						</p>
+						<p>
+							As in the previous tutorial, the interface to the solver is minimal and you should be able
+							to
+							memorize the few functions needed. The difficulty is to design the encoding of the problem,
+							that is, the set of formulas or constraints that act as a definition of the problem.
+						</p>
+						<p>
+							You can find a guide to the API <a
+								href="https://ericpony.github.io/z3py-tutorial/guide-examples.htm"> here</a>. However,
+							in this tutorial we are only using a very restricted subset of the commands. In particular
+							we are only using integer, boolean and function literals.
+						</p>
+						<p>
+							You should already have installed Z3 and its python API in order to complete Assignment 3
+							and
+							the tutorial on SAT solving. If not, head to the <a href="../sat20/index.html">the first
+								tutorial</a> and follow the short installation guide.
+						</p>
+					</div>
+				</div>
+				<div id="video1" class="card card-1">
+					<div class="card-title">Video Tutorial: SMT for Problem Solving </div>
+					<div class="card-content">
+						<p>
+							Before watching the video, you should download the starter code for the Job Shop problem
+							example
+							<a href="job_shop.zip">here</a>.
+						</p>
+						<p>
+							You can view the video on MyMedia by clicking on the <a
+								href="https://play.library.utoronto.ca/7da0e0616d93065ad868d734548e5e8d">following
+								link</a>
+							or watch on YouTube below:
+						</p>
+						<iframe width="560" height="315" src="https://www.youtube.com/embed/Nd7tLkWMCaA" frameborder="0"
+							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+							allowfullscreen></iframe>
+						<p>
+							You can see the solutions for the <a href="job_shop_solution.py">job shop</a> and the <a
+								href="seating_arrangement_solution.py">seating arrangment</a> problems. Those are
+							slightly
+							different than the ones presented, but you should be able to understand why these
+							diffferences
+							do not change the solution.
+						</p>
+					</div>
+				</div>
+				<!-- text-contents -->
+			</div> <!-- main-container -->
+			<div id="footer">
+			</div>
+		</div> <!-- page container -->
+</body>
+
+</html>

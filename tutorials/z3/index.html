@@ -1,0 +1,47 @@
+<html>
+  <head>
+    <title>An introduction to z3</title>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+      <meta name="description" content="Homepage of Victor Nicolet">
+      <meta name="keywords" content="victor, nicolet, z3, SAT, SMT, z3, solvers">
+      <meta name="author" content="Victor Nicolet">
+      <meta content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes" name="viewport">
+      <!--  Fonts -->
+      <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+      <link rel="stylesheet" href="../../style.css">
+      <link rel="stylesheet" href="../../font-awesome/css/font-awesome.min.css">
+  </head>
+
+  <body>
+    <div id="page-container">
+      <div id="header">
+		<h1 class="header-big-title">CSC410 tutorial: z3</h1>
+      </div> <!-- header -->
+      <div id="main-container" class="card card-1">
+		<div class="text-contents">
+		  <div class="card card-1">
+			<div class="card-title">Getting started with z3</div>
+			<div class="card-content">
+			  You can either use <span class="important"><b>z3</b> online <a href="http://rise4fun.com/z3" target="_blank">here</a></span> or install it on your computer following the instructions <a href="https://github.com/Z3Prover/z3" target="_blank">on Z3's Github repository</a>.</br>
+			  If you want to do some background reading, you can start <a href="https://github.com/Z3Prover/z3/wiki#background">here</a> but the tutorial should be self contained. We will use the <a href="http://smtlib.github.io/jSMTLIB/SMTLIBTutorial.pdf">SMT-LIB v2</a> language to write our formulas and specify the problem for the solver, but you don't need to read the whole manual and we will use only a small subset of the language.
+			</div>
+		  </div>
+		  <div class="card card-1">
+			<div class="card-title"><a href="./SAT.html">SAT: the N queens example</a></div>
+			<div class="card-content">
+			  We will start by trying to solve the N-queens puzzle. The goal here is to understand how to encode a problem into a SAT problem. There is no great difficulty and we'll use a very small subset of SMT-LIB v2, but that's a good warm-up.
+			</div><!--card-content-->
+		  </div><!--card-->
+		  <div class="card card-1">
+			<div class="card-title"><a href="./SMT.html">SMT: Job Shop scheduling</a></div>
+			<div class="card-content">
+			  For the Job Shop scheduling problem, we need something more involved than propositional formulas. Another NP-hard problem that you will solve with the power of an SMT solver!
+			</div>
+		  </div>
+		  <div> <!-- text-contents -->
+		  </div> <!-- main-container -->
+		  <div id="footer">
+		  </div>
+		</div> <!-- page container -->
+  </body>
+</html>

@@ -1,0 +1,148 @@
+<html>
+  <head>
+    <title>An introduction to z3</title>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+      <meta name="description" content="Homepage of Victor Nicolet">
+      <meta name="keywords" content="victor, nicolet, z3, SAT, SMT, z3, solvers">
+      <meta name="author" content="Victor Nicolet">
+      <meta content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes" name="viewport">
+      <!--  Fonts -->
+      <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+      <link rel="stylesheet" href="../../style.css">
+      <link rel="stylesheet" href="../../font-awesome/css/font-awesome.min.css">
+  </head>
+
+  <body>
+    <div id="page-container">
+      <div id="header">
+	<h1 class="header-big-title">CSC410 tutorial: z3 - SMT solving</h1>
+	<a class="back-link" href="./index.html"><i class="fa fa-fw fa-angle-double-left"></i>to summary</a>
+      </div> <!-- header -->
+      <div id="main-container" class="card card-1">
+	<div class="text-contents">
+	  <h2>The Job Shop Problem</h2>
+	  <p>
+	    In this problem, we need to schedule tasks on different work stations, with some constraints. The tasks are part of a job - say building a bike.</br>
+	    - each task in a job must start only after the previous task has been completed. </br>
+	    - a task cannot be paused - the time it takes to complete cannot be divided.
+	    - the work stations can only work on one task.
+	    You can have a look <a href="https://developers.google.com/optimization/scheduling/job_shop">here</a> for a more complete - and graphical - explanation.
+	  </p>
+	  <h3>3 job shop</h3>
+	  <p>
+	    In this tutorial we will study the following problem. We have three different jobs, each one consisting of three different tasks. Each task is assigned to a machine and has a predefined duration.</br>
+	    We have three jobs <span class="codeSnippet">jo0, job1, job2</span> containing task. We define the problem parameters in the following lists, where each element of the list is a pair <span class="codeSnippet">(m,d)</span> where <span class="codeSnippet">m</span> represents the machine where the task has to be executed and <span class="codeSnippet">d</span> is the duration of the task:
+	  </p>
+	  <div class="codeSnippet">
+	    job0 = [(0,3), (1,2), (2,2)];</br>
+	    job1 = [(0,2), (2,1), (1,4)];</br>
+	    job2 = [(1,4),(2,3)];
+	  </div>
+	  <p>
+	    <i>The jobs are a list of tasks, and each task is a pair where the first element represents the machine number that can execute the task and the second is the duration of the task.</i>
+	  </p>
+	  <h3>Encoding the problem</h3>
+	  <p>
+	    Now we have a problem where atoms - the tasks - have different durations. We cannot encode it as a boolean formula as in the 4-queens problem, we will need numbers and related operators to express the problem ...
+	  </p>
+	  <h2>Theory of linear integer arithmetic</h2>
+	  <p> TODO </p>
+	  <h2>Back to the problem</h2>
+	  <p>
+	    Each task has two parameters:</br>
+	    - the job it is part of.</br>
+	    - the duration of the task.</br>
+	    And there is one unkown - the start time of the task on the machine. We still want to encode the problem as a propositional formula, but now each formula uses linear integer arithmetic.
+	  </p>
+	  <h3>3 jobs shop</h3>
+	  <p>
+	    Now let us clearly define the problem. We need to declare the variables we need, here representing the starting times of the task:
+	  </p>
+	  <script src="https://gist.github.com/victornicolet/0a2105e4bb1d59587cab8849a2be2b55.js"></script>
+	  <p>
+	    A first constraint we need to add is that all starting times for the tasks are positive:
+	  </p>
+	  <script src="https://gist.github.com/victornicolet/4125cd8f629b482830fb7e8407ed1346.js"></script>
+	  <p>
+	    We can first express the <span class="alert">"all tasks in a job should be executed sequentially"</span> constraints.</br>
+	    In each job, the start time of a task should be greater than or equal to the start time of the previous task plus the duration of this task. This gives a conjunction of comparisons for each job:
+	  </p>
+	  <script src="https://gist.github.com/victornicolet/562a8cf3a14f47cf311b1b098c45bd93.js"></script>
+	  <p>
+	    Then we need to add the <span class="alert">"a machine can execute only one task at a time"</span> constraints.</br>
+	    One way to do this is to think about it this way: the machine executes only one task at a time if and only if all the tasks executed on the machine do not overlap. When looking at the sequence of the tasks executed on a particular machine, each task starts at least after the previous has finished. And this has to be true for <b>every possible sequence</b> of tasks. For each machine, we need to enumerate the possible sequence of tasks (we have a disjunction here) and then constrain this sequence (a conjunction).</br>
+	    This is something that a programmer would want to automatize, but have a look a the final solution for this problem:
+	  </p>
+	  <script src="https://gist.github.com/victornicolet/6b57c35720773b7904b57b865275bedd.js"></script>
+
+	  <div class="card card-1 bg-green">
+	    <div class="card-title" id="SAT_solution">Solutions</div>
+	    <div class="card-content">
+	      You can have a look at the python script to generate the problem's encoding in SMT-LIB v2 <a href="https://gist.github.com/victornicolet/69fe3e109d370c5f36d7516921c45d78">here</a>. Propose your own solution in any language you want! You will remark that there is a <span class="codeSnippet">do_maxSAT</span> parameter at the beginning - we'll come do that shortly.
+	    </div> <!-- card-content -->
+	  </div> <!-- card -->
+	  <p>
+	    Try to check if it is satisifiable using z3 <a href="https://rise4fun.com/Z3/ixap">here</a>.</br>
+	    Here is the solution I got:
+	  </p>
+	  <div class="codeSnippet">
+	    (model </br>
+	    (define-fun t00 () Int 0)</br>
+	    (define-fun t01 () Int 12)</br>
+	    (define-fun t02 () Int 14)</br>
+	    (define-fun t10 () Int 3)</br>
+	    (define-fun t11 () Int 7)</br>
+	    (define-fun t12 () Int 8)</br>
+	    (define-fun t20 () Int 0)</br>
+	    (define-fun t21 () Int 4)</br>
+	    )
+	  </div>
+	  <p>
+	    So if we represent it on a diagram where each job has a color, each line represents a machine and the tasks are the blocks:
+	  </p>
+	  <div>
+	  <img src="3jobshop_sol_SAT.png"/>
+	  </div>
+	  <p>
+	    This doesn't seem very optimal, and the machines are idle most of the time. We expressed all our constraints and the solver returns a <b>correct answer</b> but not the optimal one.</br>
+	    However, z3 can help us!
+	  </p>
+	  <h3>3 job shop: optimal scheduling</h3>
+	  <p>
+	    Some SMT solvers can additionally solve max- or min- sat problems, meaning that they can find a model that satisfies a formula minimizing of maximizing another constraint. z3 supports the following constructs:</br>
+	    <span class="codeSnippet">(minimize ...)</span></br>
+	    <span class="codeSnippet">(maximize ...)</span></br>
+	    You have to place them before the <span class="codeSnippet">(check-sat)</span> construct, and z3 will handle the optimization problem.
+	  </p>
+	  <h4>Back to our problem</h4>
+	  <p>
+	    In the solution above, the overall completion of all the jobs takes too much time. One way of optmizing that is to look for the solution that completes the earliest. We want to minimize the maximum of all the finish times of the jobs:
+	  </p>
+	  <script src="https://gist.github.com/victornicolet/a6dd6b119bf059c3ab2bc84446bca1b3.js"></script>
+	  <p><b>Remark: </b>we have to specify the definition of the max function here.</p>
+	  <p><a href="https://rise4fun.com/Z3/z9I">Try it yourselves!</a></p>
+	  <p>I got this solution:</br>
+	     <div class="codeSnippet">
+	       (model</br>
+	       (define-fun t00 () Int 0)</br>
+	       (define-fun t01 () Int 4)</br>
+	       (define-fun t02 () Int 6)</br>
+	       (define-fun t10 () Int 3)</br>
+	       (define-fun t11 () Int 5)</br>
+	       (define-fun t12 () Int 7)</br>
+	       (define-fun t20 () Int 0)</br>
+	       (define-fun t21 () Int 8))
+	     </div></br>
+	     Graphically:
+	  </p>
+	  <img src="3jobshop_sol_MIN_SAT.png"/>
+	  <p>
+	    That's much better!
+	  </p>
+	</div> <!-- text-contents -->
+      </div> <!-- main-container -->
+      <div id="footer">
+      </div>
+    </div> <!-- page container -->
+  </body>
+</html>

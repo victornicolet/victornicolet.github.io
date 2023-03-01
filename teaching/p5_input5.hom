@@ -1,0 +1,14 @@
+join(int mpsL, int sumL | int mpsR, int sumR) returns (mps, sum) locals (int mps, int sum) {
+  sum = sumL + sumR;
+  mps = max(mpsL, mpsR + sumL);
+}
+
+sequential (int *s, int n) returns (mps, sum) locals (int i, int sum, int mps) {
+  mps = 0;
+  sum = 0;
+  i = 0;
+  for(i = 0; i < n; i++){
+    sum = sum + s[i];
+    mps = max(mps, sum);
+  }
+}

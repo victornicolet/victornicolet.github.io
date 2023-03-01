@@ -1,1 +1,345 @@
-Hello world
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Victor Nicolet</title>
+	<html lang="en-US">
+	<meta name="description" content="Homepage of Victor Nicolet">
+	<meta name="keywords"
+		content="victor, nicolet, homepage, concurrency, parallelization, synthesis, publications, parsynt">
+	<meta name="copyright" content="Copyright © 2017 Victor Nicolet. All Rights Reserved.">
+	<meta name="author" content="Victor Nicolet">
+	<meta content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes" name="viewport">
+
+	<!--  Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="fa/css/all.min.css">
+</head>
+
+<body>
+	<div id="page-container">
+		<div id="header">
+			<div class="header-photo">
+				<img class="image-container-responsive" src="VictorNicolet.JPG" alt="Victor Nicolet" />
+			</div>
+			<div class="header-title">
+				<span class="title">Victor Nicolet</span>
+				<span class="info">PhD Student</span> <!-- Info -->
+			</div>
+			<div class="header-contents">
+				<span class="weak-link">
+					<a href="https://www.utoronto.ca/">University of Toronto</a>,
+					<a href="http://web.cs.toronto.edu/">Department of Computer Science</a>
+				</span>
+				<span class="email">
+					<i class="fas fa-envelope"></i> victorn [at] cs [dot] toronto [dot] edu
+				</span>
+				<span class="postal">
+					<i class="fas fa-pencil-alt"></i> Toronto, Canada
+				</span>
+			</div>
+			<div id="header-links">
+				<a class="header-link" href="cv.pdf">
+					<i class="fas fa-file"></i> CV
+				</a>
+
+				<a class="header-link" href="http://www.github.com/victornicolet" target="_blank">
+					<i class="fab fa-github"></i> Github
+				</a>
+				<a class="header-link" href="http://dblp.uni-trier.de/pers/hd/n/Nicolet:Victor" target="_blank">
+					<i class="fas fa-book"></i> dblp
+				</a>
+
+				<a class="header-link" href="https://conf.researchr.org/profile/conf/victornicolet" target="_blank">
+					<i class="fas fa-globe"></i> conf.researchr.org
+				</a>
+			</div>
+		</div> <!-- header -->
+		<div id="main-container" class="card card-1">
+			<div id="contents">
+				<!-- SHORT SUMMARY -->
+				<div id="summary">
+					Hi ! I am fifth year PhD candidate in the Software Engineering Group at the University of Toronto.
+					I am mostly interested in formal methods and program synthesis, with a particular focus on parallel
+					programs.</br>
+					My advisor is <a href="http://www.cs.toronto.edu/~azadeh">Azadeh Farzan</a>.
+				</div>
+
+				<!-- PROJECTS -->
+				<div id="projects" class="card card-1 fullwidth">
+					<h2 class="card-title">Projects</h2>
+					<div class="project">
+						<a class="title" href="https://www.github.com/victornicolet/Synduce">Synduce</a>
+						<p class="description">
+							<i>Synduce</i> synthesizes recursive functions given a functional specification.
+							In the background, it takes advantage of selective bounding techniques to solve
+							non-trivial problems, efficiently utilizing off-the-shelf solvers for finding solutions
+							to recursion-free abstractions of the original problem.
+					</div>
+					<div class="card-contents">
+						<div class="project">
+							<a class="title" href="https://www.github.com/victornicolet/parsynt">Parsynt</a>
+							<p class="description"><i>Parsynt</i> is a tool designed to synthesize a divide-and-conquer
+								style implementation of a given loop, along with a proof that this implementation is
+								equivalent to the one provided as input. We currently take as input a C program with for
+								loops and output a parallel version written in C++ using Intel's Threading Building
+								Blocks <a href="https://www.threadingbuildingblocks.org/">[TBB]</a> library. The proof
+								verifying that this implementation is equivalent to the sequential one given as input is
+								encoded in <a
+									href="https://www.microsoft.com/en-us/research/project/dafny-a-language-and-program-verifier-for-functional-correctness/?from=http%3A%2F%2Fresearch.microsoft.com%2Fdafny">Dafny</a>,
+								a language and program verifier for functional correctness.</p>
+						</div>
+					</div>
+				</div>
+
+				<!-- PUBLICATIONS -->
+				<div id="publications" class="card card-1 fullwidth">
+					<h2 class="card-title">Publications</h2>
+					<div class="card-content">
+						<div class="publication" id="pldi22" itemscope itemtype="http://schema.org/ScholarlyArticle">
+							<div>
+								<span class="title" itemprop="name">Recursion Synthesis with Unrealizability
+									Witnesses</span>
+								<span class="file" itemprop="sameAs"> <a href="papers/pldi22.pdf"><i
+											class="fas fa-file"></i></a></span>
+								<!-- <span class="file" itemprop="sameAs"> <a href="papers/pldi21.pdf"><i
+											class="fas fa-file"></i></a></span>
+								<span class="file" itemprop="sameAs"><a href="papers/pldi21_full.pdf"><i
+											class="fas fa-file-alt"></i> full</a></span> -->
+							</div>
+							<div>
+								<a class="conference" itemprop="publication" href="http://pldi22.sigplan.org/">PLDI
+									2022</a>
+								<span class="authors">
+									with
+									<a href="http://www.cs.toronto.edu/~azadeh/index.html" itemprop="author" itemscope
+										itemtype="http://schema.org/Person">Azadeh Farzan</a> and
+									Danya Lette
+								</span>
+							</div>
+						</div> <!-- end publication: pldi22 -->
+						<div class="publication" id="cav21" itemscope itemtype="http://schema.org/ScholarlyArticle">
+							<div>
+								<span class="title" itemprop="name">Counterexample-Guided Partial Bounding for
+									Recursive Function Synthesis</span>
+								<span class="file" itemprop="sameAs"> <a href="papers/cav21.pdf"><i
+											class="fas fa-file"></i></a></span>
+								<span class="file" itemprop="sameAs"><a href="papers/cav21-extended.pdf"><i
+											class="fas fa-file-alt"></i> extended</a></span>
+							</div>
+							<div>
+								<a class="conference" itemprop="publication" href="http://i-cav.org/2021/">CAV
+									2021</a>
+								<span class="authors">
+									with <a href="http://www.cs.toronto.edu/~azadeh/index.html" itemprop="author"
+										itemscope itemtype="http://schema.org/Person">Azadeh Farzan</a>
+								</span>
+							</div>
+						</div> <!-- end publication: cav21 -->
+						<div class="publication" id="pldi21" itemscope itemtype="http://schema.org/ScholarlyArticle">
+							<div>
+								<span class="title" itemprop="name">Phased Synthesis of Divide-And-Conquer
+									Programs</span>
+								<span class="file" itemprop="sameAs"> <a href="papers/pldi21.pdf"><i
+											class="fas fa-file"></i></a></span>
+								<span class="file" itemprop="sameAs"><a href="papers/pldi21_full.pdf"><i
+											class="fas fa-file-alt"></i> full</a></span>
+							</div>
+							<div>
+								<a class="conference" itemprop="publication" href="http://pldi21.sigplan.org/">PLDI
+									2021</a>
+								<span class="authors">
+									with <a href="http://www.cs.toronto.edu/~azadeh/index.html" itemprop="author"
+										itemscope itemtype="http://schema.org/Person">Azadeh Farzan</a>
+								</span>
+							</div>
+						</div> <!-- end publication: pldi21 -->
+						<div class="publication" id="pldi19" itemscope itemtype="http://schema.org/ScholarlyArticle">
+							<div>
+								<span class="title" itemprop="name">Modular Divide-And-Conquer Parallelization of Nested
+									Loops</span>
+								<span class="file" itemprop="sameAs"> <a href="papers/pldi19.pdf"><i
+											class="fas fa-file"></i></a></span>
+								<span class="file" itemprop="sameAs"><a href="papers/pldi19-extended.pdf"><i
+											class="fas fa-file-alt"></i> extended</a></span>
+							</div>
+							<div>
+								<a class="conference" itemprop="publication" href="http://pldi19.sigplan.org/">PLDI
+									2019</a>
+								<span class="authors">
+									with <a href="http://www.cs.toronto.edu/~azadeh/index.html" itemprop="author"
+										itemscope itemtype="http://schema.org/Person">Azadeh Farzan</a>
+								</span>
+							</div>
+						</div> <!-- publication: pldi19 -->
+						<div class="publication" id="pldi17" itemscope itemtype="http://schema.org/ScholarlyArticle">
+							<div>
+								<span class="title" itemprop="name">Synthesis of Divide and Conquer Parallelism for
+									Loops</span>
+								<span class="file" itemprop="sameAs"><a href="papers/pldi17.pdf"><i
+											class="fas fa-file"></i></a></span>
+							</div>
+							<div>
+								<a class="conference" itemprop="publication" href="http://pldi17.sigplan.org/">PLDI
+									2017</a>
+								<span class="authors">
+									with <a href="http://www.cs.toronto.edu/~azadeh/index.html" itemprop="author"
+										itemscope itemtype="http://schema.org/Person">Azadeh Farzan</a>
+								</span>
+							</div>
+						</div> <!-- publication: pldi17  -->
+					</div> <!-- card-content -->
+				</div> <!-- publications -->
+				<div id="professional" class="card card-1 fullwidth">
+					<h2 class="card-title">Past events</h2>
+					<div class="card-content">
+						<ul>
+							<li>OOPSLA 2022: <a
+									href="https://2022.splashcon.org/committee/splash-2022-oopsla-external-review---artifact-evaluation-committee">External
+									Review / Artifact
+									Evaluation Committee</a>
+								member</li>
+							<li>VMCAI 2022: <a
+									href="https://popl22.sigplan.org/committee/VMCAI-2022-papers-artifact-evaluation-committee">Artifact
+									Evaluation Committee</a>
+								member</li>
+							<li>Attended <a href="https://sites.google.com/site/marktoberdorf2018/">Markoberdorf Summer
+									School 2018</a></li>
+							<li>Participated in <a
+									href="https://www.dagstuhl.de/en/program/calendar/semhp/?semnr=18111">Dagstuhl
+									Seminar 18111</a> on <i>Loop Optimization</i></li>
+							<li>PLDI 2018: <a
+									href="https://pldi18.sigplan.org/committee/pldi-2018-artifact-evaluation-committee">Artifact
+									Evaluation Committee</a>
+								member</li>
+						</ul>
+					</div>
+				</div>
+
+				<div id="taships" class="card card-1 fullwidth">
+					<h2 class="card-title">TAships</h2>
+					<div class="card-content">
+						<div class="taship">
+							<table style="width:100%">
+								<!-- ======================================== CSC 410 2021 -->
+								<tr>
+									<td><i class="fa fa-fw fa-graduation-cap"></i></td>
+									<td><a href="https://www.cs.toronto.edu/~azadeh/teaching/csc410/"
+											class="title">CSC410 - Fall 2021: Software Verification and Testing<a></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td><a class="clickableitem"
+											href="https://github.com/danyalette/CSC410-final-project-releases">Project:
+											<i>Toy
+												Synthesizer</i></a></td>
+								</tr>
+								<!-- ======================================== CSC 410 2020 -->
+								<tr>
+									<td><i class="fa fa-fw fa-graduation-cap"></i></td>
+									<td><a href="https://www.cs.toronto.edu/~azadeh/teaching/csc410/"
+											class="title">CSC410 - Fall 2020: Software Verification and Testing<a></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td><a class="clickableitem" href="./tutorials/sat20/index.html">SAT solving
+											with z3</a></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td><a class="clickableitem" href="./tutorials/smt20/index.html">SMT solving
+											with z3</a></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td><a class="clickableitem" href="./tutorials/sygus20/index.html">Program synthesis
+											with Rosette</a></td>
+								</tr>
+								<!-- <tr>
+									<td></td>
+									<td><a class="clickableitem" href="./tutorials/z3_SAT_2019/index.html">SMT solving
+											with z3</a></td>
+								</tr> -->
+								<!-- ======================================== CSC 410 2019 -->
+								<tr>
+									<td><i class="fa fa-fw fa-graduation-cap"></i></td>
+									<td>CSC410 - Fall 2019: Software Verification and Testing</td>
+								</tr>
+								<tr>
+									<td></td>
+									<td><a class="clickableitem" href="./tutorials/z3_SAT_2019/index.html">Tutorial 2:
+											SAT solving with z3</a></td>
+								</tr>
+								<!-- ======================================== CSC410 2017 -->
+								<tr>
+									<td><i class="fa fa-fw fa-graduation-cap"></i></td>
+									<td>CSC410 - Fall 2017: Software Verification and Testing</td>
+								</tr>
+								<tr>
+									<td></td>
+									<td><a class="clickableitem" href="./tutorials/z3/index.html">Tutorial 1: z3</a>
+									</td>
+								</tr>
+								<tr>
+									<td></td>
+									<td><a class="clickableitem"
+											href="https://github.com/victornicolet/pycparser/blob/master/examples/tutorial.py">Tutorial
+											2: PyCParser and visiting AST nodes</a></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td><a class="clickableitem"
+											href="https://github.com/victornicolet/csc410-p4parser/blob/master/rosette-tutorial.rkt">Tutorial
+											3: Short introduction to Rosette</a></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td><a class="clickableitem" href="./teaching/CSC410project.html">Projects 1-5
+											resources</a></td>
+								</tr>
+								<tr>
+									<td><i class="fa fa-fw fa-graduation-cap"></i></td>
+									<td><a href="https://www.cs.toronto.edu/~david/csc324/index.html"
+											class="title">CSC324: Programming Languages<a></td>
+								</tr>
+							</table>
+						</div>
+					</div> <!-- TAships -->
+				</div>
+
+				<!-- MANUSCRIPT -->
+				<div id="manuscripts" class="card card-1 fullwidth">
+					<h2 class="card-title">Other</h2>
+					<div class="card-content">
+						<div class="publication" id="manuscript21" itemscope
+							itemtype="http://schema.org/ScholarlyArticle">
+							<div>
+								<span class="title" itemprop="name">From Iterative Implementations to Single Pass
+									Functions</span>
+								<span class="file" itemprop="sameAs"><a href="papers/functional_translation.pdf"><i
+											class="fas fa-file"></i></a></span>
+							</div>
+							<div>
+								<a itemprop="publication"></a>
+								<span class="authors">
+									<a href="http://www.cs.toronto.edu/~azadeh/index.html" itemprop="author" itemscope
+										itemtype="http://schema.org/Person">Azadeh Farzan</a>,
+									<a href="http://www.cs.toronto.edu/~victorn/index.html" itemprop="author" itemscope
+										itemtype="http://schema.org/Person">Victor Nicolet</a>
+								</span>
+							</div>
+						</div> <!-- publication: pldi17  -->
+					</div> <!-- card-content -->
+				</div> <!-- publications -->
+
+
+			</div> <!-- contents -->
+		</div> <!-- main-container -->
+		<div id="footer">
+			<!-- <i class="copyright">Last updated 1 January 2018.</i> -->
+		</div>
+	</div> <!-- page container -->
+</body>
+
+</html>

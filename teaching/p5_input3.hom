@@ -1,0 +1,11 @@
+join(int maxvalL |int maxvalR) returns (maxval) locals (int maxval) {
+  maxval = max(maxvalL, maxvalR);
+}
+
+sequential (int* s, int n) returns (maxval) locals (int i, int maxval) {
+  maxval = 0;
+  i = 0;
+  for(i = 0; i < n; i++) {
+    maxval = max(maxval, s[i]);
+  }
+}

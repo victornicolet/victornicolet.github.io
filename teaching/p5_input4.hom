@@ -1,0 +1,13 @@
+join(int minvalL, int min2L | int minvalR, int min2R) returns (minval, min2) locals (int minval, int min2) {
+  minval = min(minvalL, minvalR);
+  min2 = min(max(minvalR, minvalL), min(min2R, min2L));
+}
+
+sequential (int* s, int n) returns (minval, min2) locals (int i, int minval, int min2) {
+  minval = 0;
+  min2 = 0;
+  for(i = 0; i < n; i++){
+    minval = min(s[i], minval);
+    min2 = min(min2, max(s[i], minval));
+  }
+}

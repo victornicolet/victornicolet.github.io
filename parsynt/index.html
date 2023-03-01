@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Parsynt</title>
+    <html lang="en-US">
+      <meta name="description" content="Homepage of Parsynt">
+      <meta name="keywords" content="tool, concurrency, parallelization, synthesis, publications, parsynt">
+      <meta name="copyright" content="Copyright © 2017 Victor Nicolet and Azadeh Farzan. All Rights Reserved.">
+      <meta name="author" content="Victor Nicolet">
+      <meta content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes" name="viewport">
+      <link rel="stylesheet" href="../style.css">
+      <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
+  </head>
+
+  <body>
+    <div id="page-container">
+      <div id="page-header">
+		<span class="title">Parsynt</span>
+		<span class="subtitle">Divide-and-conquer programs synthesizer</span>
+		<a id="github-header-link" href="http://www.github.com/victornicolet/parsynt">
+		  <i class="fa fa-fw fa-3x fa-github" aria-hidden="true"></i>
+		</a>
+      </div> <!-- page-header -->
+
+      <div class="page-contents">
+		<div class="card card-1">
+		  <div class="card-content">
+			<p>
+			  <span class="toolname">Parsynt</span> is an automatic parallelizer - but it's not a compiler.
+			  Using on program synthesis, it produces parallel divide-and-conquer implementations of loops
+			  in a C input program. It uses <a href="http://www.threadingbuildingblocks.org">TBB</a> as a
+			  target framework for the implementation and provides, if possible, a proof of functional
+			  equivalence to the input code in <a href="https://www.microsoft.com/en-us/research/project/dafny-a-language-and-program-verifier-for-functional-correctness/">Dafny</a>. In the background, it relies on the syntax-guided synthesis solver <a href="http://emina.github.io/rosette/">Rosette</a> to find a suitable <i>join</i> function.
+			</p>
+			<div class="image-container-responsive">
+			  <img src="./images/workflow.png" style="width:100%;">
+			</div>
+		  </div> <!-- section-content (Presentation) -->
+		</div> <!-- section (Presentation) -->
+
+		<div class="card card-1">
+		  <h1 class="card-title">Installation</h1>
+		  <div class="card-content">
+			<p>
+			  Get the source archive <a href="parsynt.zip">here</a> and execute the <span class="code">setup.sh</span> script in the root folder. <i>We are working on packaging the application in a more suitable format.</i><br/>
+			  The script relies on the <span class="code">aptitude</span> package manager.
+			  We have tested the installation on Ubuntu 16.04 and 14.04.
+			  For other OSes and OSes without the <span class="code">aptitude</span> package manager,
+			  you should install the requirements yourself. For more instructions visit the
+			  <a href="http://www.github.com/victornicolet/parsynt">GitHub repository</a>.
+			</p>
+			<p>
+			  <b>REMARK</b> : we use Ocaml's OPAM package manager, so you should have the
+			  environment variables correctly set if you have already installed it. Otherwise,
+			  you will be asked during the installation of OPAM is you want it to write into
+			  your <span class="code">.profile</span>. We assume the environment has access to OPAM's binaries.
+			</p>
+		  </div> <!-- section-contents (Installation) -->
+		</div> <!-- section (Installation) -->
+
+		<div class="card card-1">
+		  <h1 class="card-title">Using the tool</h1>
+		  <div class="card-content">
+			<p>
+			  When <span class="code">setup.sh</span> succeeds, you have a link to an executable in the base
+			  folder. Try the tool on a file <span class="code">example.c</span>.
+			</p>
+			<p>
+			  <span class="code">
+				./Parsynth c_examples/&#60;example_name.c&#62;
+			  </span>
+			</p>
+			<p>
+			  The tool will look for all the innermost for loops and try to find a divide-and-conquer
+			  parallelization for them. If it succeeds, it will produce a TBB implementation in
+			  <span class="code">tbb_examples/&#60;name of the function where the loop appears&#62;.cpp</span>
+			  and a proof to be checked by Dafny in <span class="code">dafny_examples/&#60;name of the
+				function where the loop appears&#62;.dfy<span>.
+			</p>
+			<p>
+			  To check the proofs, the user might want to install the Dafny Proof checker.
+			</p>
+		  </div> <!-- section-contents (Using the tool)  -->
+		</div> <!-- section (Using the tool) -->
+
+		<div class="card card-1 fullwidth">
+		  <h1 class="card-title">Publications</h1>
+		  <div class="card-content">
+			<div class="publication" itemscope itemtype="http://schema.org/ScholarlyArticle">
+              <span class="title" itemprop="name">Synthesis of Divide and Conquer Parallelism for Loops</span>
+              <a class="conference" itemprop="publication" href="http://pldi17.sigplan.org/">PLDI 2017</a>
+              <span class="authors">
+				<a href="http://www.cs.toronto.edu/~azadeh/index.html" itemprop="author" itemscope itemtype="http://schema.org/Person">Azadeh Farzan</a>,
+				<a href="http://www.cs.toronto.edu/~victorn/index.html" itemprop="author" itemscope itemtype="http://schema.org/Person">Victor Nicolet</a>
+              </span>
+			  <span class="file" itemprop="sameAs">
+				<a href="http://www.cs.toronto.edu/~azadeh/resources/papers/pldi17.pdf">
+				  <i class="fa fa-fw fa-3x fa-file-pdf-o"></i>
+				</a>
+			  </span>
+			</div> <!-- publication PLDI 2017 -->
+		  </div>	 <!-- section-contents -->
+		</div>	 <!-- section (Publicaions)  -->
+      </div>	 <!-- page-contents -->
+    </div> <!-- page-container -->
+  </body>
+</html>

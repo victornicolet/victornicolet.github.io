@@ -1,0 +1,114 @@
+<html>
+  <head>
+    <title>An introduction to z3</title>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+      <meta name="description" content="Homepage of Victor Nicolet">
+      <meta name="keywords" content="victor, nicolet, z3, SAT, SMT, z3, solvers">
+      <meta name="author" content="Victor Nicolet">
+      <meta content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes" name="viewport">
+      <!--  Fonts -->
+      <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+      <link rel="stylesheet" href="../../style.css">
+      <link rel="stylesheet" href="../../font-awesome/css/font-awesome.min.css">
+  </head>
+
+  <body>
+    <div id="page-container">
+      <div id="header">
+		<h1 class="header-big-title">CSC410 tutorial: z3 - SAT solving</h1>
+		<a class="back-link" href="./index.html"><i class="fa fa-fw fa-angle-double-left"></i>to summary</a>
+      </div> <!-- header -->
+      <div id="main-container" class="card card-1">
+		<div class="text-contents">
+		  <h2>N-queens problem</h2>
+		  <p>
+			You have probably seen this problem before: chessboard queens might attack horizontally, vertically and diagonally. Our problem is to place <b>N</b> queens on a <b>N by N</b> chessboard so that no two of the queens attack each other.</br>
+			<figure class="centered-figure">
+			  <img src="sol_4x4_b.png" alt="Solution for the 4-queens problem"/>
+			  <figcaption>A solution for the 4-queens problem.</figcaption>
+			</figure>
+		  </p>
+
+		  <h3>Solving the 4-queens problems</h3>
+		  <p>
+			We will first take a look on how we can solve the 4-queens problem with SAT solving. The problem can be encoded as a set of booleans, where each boolean represents one cell of the chessboard. If the boolean is set to true, there is a queen on the cell, and is false the cell is empty.</br>
+		  </p>
+		  <h4>Z3: what you will need</h4>
+		  <p>
+			For this problem, you will need to write only basic s-expressions in SMT-LIB v2 for z3 to solve. First, here how to declare a boolean variable:
+		  </p>
+		  <div class="codeSnippet">(declare-const b Bool)</div>
+		  <p>
+			If you want to add a clause to the solver, use the assert construct. For example we want to add the formula <img src="eqns/a_and_b_eqn.gif"/>:
+		  </p>
+		  <div class="codeSnippet">(assert (and b a))</div>
+		  <p>
+			Some other operators on booleans:</br>
+			<img src="eqns/a_or_b_eqn.gif"/> : 	  <span class="codeSnippet">(or b a)</span></br>
+			<img src="eqns/not_a.gif"/> : <span class="codeSnippet">(not a)</span></br>
+		  </p>
+		  <p>
+			Once you have provided all the formulas you can ask the solver if they are <b>satisfiable</b> (meaning the solver can find an interpretation for all the user defined variables that make all the assertions true):
+		  </p>
+		  <div class="codeSnippet">(check-sat)</div>
+		  <p>
+			You can even ask the solver to provide an interpretation (a model):
+		  </p>
+		  <div class="codeSnippet">(get-model)</div>
+	  </br>
+	  That's all for now!
+
+
+	  <div class="card card-1 bg-green">
+	    <div class="card-content">
+	      Now we will encode the problem in Z3. However, all the following steps are very repetitive, and they can be automatized. You can directly jump to the <a href="#SAT_solution">complete solutions</a> and try to understand them.</br>
+	      <i> The following process illustrates the encoding of the problem into a formula, but there is nothing challenging in how we use z3.</i>
+	    </div>
+	  </div>
+	  <h4>Defining the variables we need</h4>
+		  <p>
+			We first have to define the variables we need, and then we will slowly add constraints to the problem. For the 4-queens problem, we want to model each cell of the chessboard, so let us declare 16 booleans:
+		  </p>
+		  <script src="https://gist.github.com/victornicolet/4e3dd511708a5beaaf37a66bb5cf8784.js"></script>
+		  <p>
+			Now we will gradually add the constraint of the problem, by encoding them as propositional formulas where the atoms are the variables we just declared.</br>
+
+			Then we have to find a formula that will encode the different constraints that we have. First, <span id="constraint_four_queens_on_board" class="alert">there should be 4 queens on the board</span>. But we can't use natural numbers here, so one way to express this is to remark that with our constraints, there should be at least one queen per line.</br>
+			So for each line <span class="codeSnippet">i</span> we have <span class="codeSnippet">(or xiy0 xiy1 xiy2 xiy3)</span> that gives us:
+		  </p>
+		  <script src="https://gist.github.com/victornicolet/26ceb788c6d68f854ddcc5094580b4fe.js"></script>
+		  <p>
+			Now we need to encode the <span id="constraint_one_queen_per_line" class="alert">"two queens should never be on the same line"</span> constraint in a formula. Another way of expressing the constraint is to say that there cannot be two queens one the same line.</br>
+			For the first line, we want the following formula to be statisfiable:</br>
+			<span class="codeSnippet">(not (or (and x0y1 x0y0) (and x0y2 x0y0) (and x0y2 x0y1) (and x0y3 x0y0) (and x0y3 x0y1) (and x0y3 x0y2)))</span>
+			which means we cannnot find a pair of cells that are both set to true. Since we have 4 cells in a line we have 6 pairs to check.</br>
+			For the four lines:
+		  </p>
+		  <script src="https://gist.github.com/victornicolet/fdc8e89e1cf45a05f104e7c6451a8c96.js"></script>
+		  <p>The formulas for the <span class="alert" id="constraint_one_queen_per_column">"two queens should be never be on the same column"</span> constraints look very similar and we just need to transpose the previous ones:
+		  </p>
+		  <script src="https://gist.github.com/victornicolet/836c0e6b7b3760b1f3b6ee56448ad5aa.js"></script>
+		  <p>
+			Now we have one set of constraints left : <span class="alert" id="constraint_one_queen_per_diagonal">"two queens should never be on the same diagonal"</span>. The shape of the formula is similar, we have a negation over a disjunction of the "bad cases" where two cells on the same diagonal contain a queen. In the SMT-LIB v2 language, for the central diagonal from top-left two bottom-right corner of the board it translates to :</br>
+			<span class="codeSnippet">(not (or(and x1y0 x0y0) (and x2y0 x0y0) (and x2y0 x1y0) (and x3y0 x0y0) (and x3y0 x1y0) (and x3y0 x2y0)))</span></br>
+			We have ten diagonals - five in each direction, and a single cell doesn't count - so we add ten cosntraints.
+		  </p>
+		  <script src="https://gist.github.com/victornicolet/92bfccab8edcb5d591e803e0ea19703b.js"></script>
+		  <p>
+			The size of the formulas grows exponentially with the size of the problem, so it becomes difficult (and bothersome) to express constraints for bigger problems. However, you can easily try to write a script that generates such formulas !
+		  </p>
+		  <div class="card card-1 bg-green">
+			<div class="card-title" id="SAT_solution">Complete solutions</div>
+			<div class="card-content">
+			  You can check the full solution <a href="https://gist.github.com/victornicolet/f337f525b715b43ce0dc2154cb92eaf6">here on Github</a> or directly test it <a href="http://rise4fun.com/Z3/Po5">here on rise4fun</a>.</br>
+			  Here is the encoding of the <a href="http://rise4fun.com/Z3/QbH">8-queens problem</a>.</br>
+			  If you want a simple program to generate the SAT encoding of the n-queen problem, you can have a look <a href="https://gist.github.com/victornicolet/a642f16aeb3165047b5be948257d4d03">at this Python script</a>.
+			</div> <!-- card-content -->
+		  </div> <!-- card -->
+		  <div> <!-- text-contents -->
+		  </div> <!-- main-container -->
+		  <div id="footer">
+		  </div>
+		</div> <!-- page container -->
+  </body>
+</html>

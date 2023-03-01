@@ -1,0 +1,112 @@
+<html>
+
+<head>
+    <title>Program Synthesis with Rosette</title>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+    <meta name="description" content="Homepage of Victor Nicolet">
+    <meta name="keywords" content="victor, nicolet, synthesis, rosette, solvers">
+    <meta name="author" content="Victor Nicolet">
+    <meta content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes" name="viewport">
+    <!--  Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="../../font-awesome/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div id="page-container">
+        <div id="header">
+            <h1 class="header-big-title">CSC410 Tutorial: Program synthesis with Rosette</h1>
+        </div> <!-- header -->
+        <div id="main-container" class="card card-1">
+            <div class="text-contents">
+                <div class="card card-1">
+                    <div class="card-content">
+                        <p>
+                            This tutorial is a short introduction to using <a
+                                href="https://docs.racket-lang.org/rosette-guide/index.html"> Rosette</a> for program
+                            synthesis. You should start by following the <a
+                                href="https://docs.racket-lang.org/rosette-guide/ch_getting-started.html"
+                                target="_blank">Getting
+                                Started</a> part of the guide. You will be required to <a
+                                href="https://download.racket-lang.org" target="_blank">install Racket</a> (version >
+                            7.0) and use the package manager of Racket to install Rosette. To interact with Rosette, we
+                            will have to write Racket programs, which you might have learned to do in CSC324. But don't
+                            worry if you haven't, our use of Racket will be limited and you only need to know how to
+                            write simple functions and expressions.
+                        </p>
+                    </div>
+                </div>
+                <div class="card card-1">
+                    <div class="card-title">0 / Racket Syntax</div>
+                    <div class="card-content">
+                        <p>
+                            This short video is meant to be an introduction to the syntax of the language used in the
+                            tutorial. You do not need an advanced knowledge of Racket to understand the tutorial, only
+                            an understanding of the syntax, and a basic understanding of what being a functional
+                            language means. If you have taken CSC324 before, you can safely skip this.
+                        </p>
+                        <p class="d-flex justify-content-center">
+                        <div>
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/6r9k9tB3CU8"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
+                        </div>
+                        </p>
+                        <p>
+                            The video is also available on <a
+                                href="https://play.library.utoronto.ca/6a7232e4aec13462fea32fde4b8cbc10"
+                                target="_blank">MyMedia</a> for UofT students.
+                        </p>
+                    </div>
+                </div>
+                <div class="card card-1">
+                    <div class="card-title">1 / Introduction to Rosette</div>
+                    <div class="card-content">
+                        <p>
+                            Now we can focus on progam synthesis. In the video tutorial below, we intrdouce you to
+                            <i>syntax-guided synthesis</i> using Rosette. In order to follow this tutorial, you need to
+                            have Rosette installed. The editor used in the demo is Emacs, but feel free to use your
+                            editor of choice. If you use DrRacket, you can directly run the examples from your editor.
+                        </p>
+                        <p>
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/hY09W3sc1cU"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
+                        </p>
+                        <p>
+                            The video is also available on <a
+                                href="https://play.library.utoronto.ca/5737937b50e60f8d7849d441534893e7"
+                                target="_blank">MyMedia</a> for UofT students.
+                        </p>
+                        <p>
+                            <b>Note:</b> in the tutorial I used a version of Rosette installed before May 2020. In the
+                            current version, the first example of the tutorial does not seem to work. You can get around
+                            that problem by replacing one of the (??) by a 3.
+                        </p>
+                        <p>
+                            Rosette has an excellent documentation, <a
+                                href="https://docs.racket-lang.org/rosette-guide/index.html" target="_blank">the Rosette
+                                Guide</a>. We are interested in the <i>synthesis</i> part (Sections 2.3.3, 3.2.5 and
+                            6.2.2) but
+                            the section defining the built-in datatypes will also be useful to you.
+                        </p>
+                        <p>
+                            You can also have a look at last year's tutorial <a
+                                href="https://github.com/victornicolet/csc410-p4parser/blob/master/rosette-tutorial.rkt">on
+                                Github</a>. However, be cautious with the example used here. Because of the use of
+                            non-linear arithmetic, the synthesis times can increase dramatically for seemingly innocuous
+                            changes in the expression grammar.
+                        </p>
+                    </div>
+                </div>
+                <!-- text-contents -->
+            </div> <!-- main-container -->
+            <div id="footer">
+            </div>
+        </div> <!-- page container -->
+</body>
+
+</html>

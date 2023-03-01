@@ -1,0 +1,121 @@
+<html>
+  <head>
+    <title>An introduction to solving SAT with z3</title>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+      <meta name="description" content="Homepage of Victor Nicolet">
+      <meta name="keywords" content="victor, nicolet, z3, SAT, SMT, z3, solvers">
+      <meta name="author" content="Victor Nicolet">
+      <meta content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes" name="viewport">
+      <!--  Fonts -->
+      <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+      <link rel="stylesheet" href="../../style.css">
+      <link rel="stylesheet" href="../../font-awesome/css/font-awesome.min.css">
+  </head>
+
+  <body>
+    <div id="page-container">
+      <div id="header">
+		<h1 class="header-big-title">CSC410 tutorial: solving SAT problems with Z3</h1>
+      </div> <!-- header -->
+      <div id="main-container" class="card card-1">
+		<div class="text-contents">
+		  <div class="card card-1">
+			<div class="card-content">
+			  <p><a href="#installation">Installting z3 and its Python interface</a></p>
+			  <p><a href="#getting_started">Getting started: basic commands</a></p>
+			  <p><a href="#encoding1">Encoding a simple problem into SAT</a></p>
+			</div> <!-- card-content -->
+		  </div> <!-- card -->
+		  <div class="card card-1">
+			<div id="installation" class="card-title">Installing z3 and its Python interface</div>
+			<div class="card-content">
+			  <p>
+				In this tutorial, we will be using Z3's Python interface. The easiest way to install it, along with a Z3 binary, is to use Python's package manager <span class="codeSnippet">pip</span>. In this tutorial, we will be using Python 3.7. Start by installing the corresponding Z3 package with the command:
+			  </p>
+			  <div class="codeSnippet">pip install z3-solver</div>
+			  <p>
+				<span class="alert">Remark that the corresponding package is <span class="codeSnippet">z3-solver</span> and not <span class="codeSnippet">z3</span>. Do not install the latter!</span>
+			  </p>
+			  <p>
+				We will not need any other package in this tutorial, so you can create a virtual environment with this package only. You can also look for other installation methods on <a href="https://github.com/Z3Prover/z3" target="_blank">Z3' github page </a>, and keep in mind that we want to use the Python interface. Once you are set up, you should be able to call the solver from your terminal and see:
+			  </p>
+			  <p class="code">
+				$ z3 </br>
+				Error: input file was not specified. </br>
+				For usage information: z3 -h
+			  </p>
+			  <p> To test your Python installation, launch the Python interpreter for which you installed Z3. You should be able to type the following commands:</p>
+			  <p class="code">
+				$ python </br>
+				... </br>
+				>>> from z3 import *</br>
+				>>> s = Solver()</br>
+				>>> s.check()</br>
+				sat
+			  </p>
+			  <p>
+				Now you have installed all the software we need in this tutorial. If you want to do some background reading, you can start <a href="https://github.com/Z3Prover/z3/wiki#background">here</a> but the tutorial will be self contained. Z3 is much more than a simple SAT solver, but we will not use any of its SMT solving or theorem proving capabilities for now.
+			  </p>
+			</div> <!-- card-content -->
+		  </div>   <!-- card -->
+		  <div id="getting_started" class="card card-1">
+			<div class="card-title">Getting started: basic commands</div>
+			<div class="card-content">
+			  <p>
+				To write a boolean formula, we will need to declare boolean variables for the solver. You can do this in Python using the <span class="code">Bool()</span> constructor. For example, we can start by creating two boolean variables <span class="code">x</span> and <span class="code">y</span>:
+			  </p>
+			  <p class="code">
+				>>> from z3 import *</br>
+				>>> x = Bool("x")</br>
+				>>> y = Bool("y")</br>
+			  </p>
+			  <p>
+				With boolean variables, you can build boolean formulas. <span class="code">z3</span> gives you constructors for disjunctions and conjunctions, negation, and equivalence:
+			  </p>
+			  <p class="code">
+				>>> x_or_y = Or([x,y]) # disjunction</br>
+				>>> x_and_y = And([x,y]) # conjunction</br>
+				>>> not_x = Not(x) # negation</br>
+				>>> x_or_y_iff_not_x = x_and_y == not_x # This is the formula (x_or_y <=> not_x) not a boolean! </br>
+			  </p>
+			  <p>
+				Once we have built the clauses that compose our problem, we need to pass the to a solver:
+			  </p>
+			  <p class="code">
+				>>> s = Solver() # create a solver s</br>
+				>>> s.add(x_or_y) # add the clause: x or y</br>
+				>>> z = Bool("z")</br>
+				>>> s.add(Or[x,y,Not(z)]) # add another clause: x or y or !z
+			  </p>
+			  <p>
+				Calling <span class="code">s.check()</span> at that point will ask the solver to find a satisfying assignment for the boolean formula built from the conjunction of all the clauses that have been added through <span class="code">s.add(..)</span>. In our running example, the call should return <span class="code">sat</span>:
+			  </p>
+			  <p class="code">
+				>>> s.check()</br>
+				sat
+			  </p>
+			  <p>
+				If the solver cannot find a satisfying assignment, then it will return <span class="code">unsat</span>. In the case it returned <span class="code">sat</span>, you can obtain the assignment itself with the <span class="code">model()</span> method:
+			  </p>
+			  <p class="code">
+				>>> s.model()</br>
+				[x = False, y = True, z = False]
+			  </p>
+			  <p>
+				And that is all you need for this tutorial, as well as for the assignment. The difficulty will be to design the encoding, not to use the solver!
+			  </p>
+			</div><!--card-content-->
+		  </div><!--card-->
+		  <div id="enoding1" class="card card-1">
+			<div class="card-title">Encoding a simple problem</div>
+			<div class="card-content">
+			  In construction.
+			</div> <!-- card-content -->
+		  </div>   <!-- card -->
+		  <div> <!-- text-contents -->
+		  </div> <!-- main-container -->
+		  <div id="footer">
+		  </div>
+		</div> <!-- page container -->
+  </body>
+</html>
